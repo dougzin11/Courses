@@ -35,5 +35,6 @@
 ## Computation Graph
 - Organizes a computation from left-to-right (usually known as foward propagation) and another computation from right-to-left (usually known as backward propagation)
 - The photo below shows a simple example of the foward propagation step
-![foward_propagation](assets/images/foward_propagation.png)
+
+![foward_propagation](https://user-images.githubusercontent.com/36196866/142196635-f3ff13d2-991d-43b3-806e-3822ae4a3717.PNG)
 
