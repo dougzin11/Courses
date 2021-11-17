@@ -1,18 +1,18 @@
-# Notation used along the course:
+## Notation used along the course:
 - ```m_train``` corresponds to the number of training examples
 - ```m_test``` corresponds to the number of test examples
 - ```X``` is a matrix defined by taking the training set inputs ```x(1)```, ```x(2)```, etc. and stacking them in columns
 - ```Y``` is equal to the label of the training inputs ```y(1)```, ```y(2)```, etc. and stacking them in columns
 
 
-# Logistic Regression
+## Logistic Regression
 - Learning algorithm used in binary classification problems (output is either 0 or 1)
 - In other words, the algorithm calculates: ```y_hat = P(y = 1 | x)```
 - In order to do that, this is done by setting ```y_hat = sigmoid(W.Tx + b)```, where ```x``` is the input matrix, and ```W``` and ```b``` are parameters.
 - The sigmoid function is used to limit the output between 0 and 1
 
 
-# Logistic Regression Cost Function
+## Logistic Regression Cost Function
 - Loss function frequently used:  ```L(y_hat, y) = -(ylog y_hat + (1-y)log(1 - y_hat))```
   - This is usually the chosen loss function since it gives a convex optimization problem (local optimum corresponds to global optimum)
 - The goal is to minimize the above loss function. There are 2 scenarios we need to study to understand why the above function works:
@@ -22,4 +22,18 @@
 - Cost function: ```J(W,b) = (1/m)Sum(L(y_hat(i), y(i)))``` where ```(i)``` corresponds to a single training example
 
 
-# Gradient Descent
+## Gradient Descent
+- Algorithm used to learn the parameters ```W``` and ```b``` during training phase. As we will see, ```W``` and ```b``` will be set as the values who minimize the Cost function ```J(W,b)``` (defined above). Just note that, instead of trying to minimze the Loss function ```L(y_hat, y)```, we are actually interested in minimizing the Cost function ```J(W,b)``` (since it is a function that measures the learning algorithm across the whole training set instead of a single training example)
+- In a nutshell, this is how the Gradient Descent algorithm works:
+  - Initialize ```W``` and ```b``` as 0 (or random values - due to the Loss function chosen above, we have a convex optimization problem, which means that the different initialization values should give similar end results)
+  - Calculate derivative of our Cost function ```J(W,b)``` with respect to ```W``` and the derivative of ```J(W,b)``` with respect to ```b``` (```dJ/dW``` and ```dJ/db```, respectively)
+  - Update ```W``` and ```b``` as follows:
+    - ```W := W - alpha dJ/dW```, where ```alpha``` corresponds to the learning rate
+    - ```b := b - alpha dJ/db```, where ```alpha``` corresponds to the learning rate
+
+
+## Computation Graph
+- Organizes a computation from left-to-right (usually known as foward propagation) and another computation from right-to-left (usually known as backward propagation)
+- The photo below shows a simple example of the foward propagation step
+![foward_propagation](assets/images/foward_propagation.png)
+
