@@ -3,8 +3,8 @@
 2. [Neural Network Representation](#neural_networks_representation)
 3. [Computing a Neural Network's Output](#computing_neural_network)
 4. [Vectorizing Across Multiple Examples](#vectorizing_multiple_examples)
-5. 
-
+5. [Why do you need non-linear activation functions](#non_linear_activation_functions)
+6. [Random Initialization](#random_initialization)
 
 ## Neural Networks Overview <a name="neural_networks_overview"></a>
 - A simple Neural Network (with 2 layers - we don't count the input layer, as we will see later) can look like the image below
@@ -68,4 +68,11 @@ where:
   - ```A[1]``` is obtained by stacking ```a[1](i)``` across all ```m_training``` examples as columns (e.g. ```a[1](1)``` as 1st column, ```a[1](2)``` as 2nd column, ..., ```a[1](m_training)``` as ```m_training``` column). Therefore, ```A[1]``` has a shape of ```(number_of_neurons_in_layer_1, m_training)```
 
 
-## Why do you need non-linear activation functions
+## Why do you need non-linear activation functions <a name="non_linear_activation_functions"></a>
+- If the network uses the identity function as its activation functions (or alternatively don't have an activation function), then it turns out that the neural network is just outputting a linear function of the input. In this situation, no matter how many layers your network has, all it is doing is just computing a linear activation function (so you might not have any hidden layers)
+
+## Random Initialization <a name="random_initialization"></a>
+- For logistic regression, it is okay to initializate the parameters to zero. However, in general, initialization the parameters to zero and applying gradient descent will not work
+- In the scenario where all your hidden units have the same weight/influence on the output unit, initializing the parameters to zero may cause the hidden units to be completely identical (i.e. calculating the exact same function) no matter how many iterations you train the network
+- The solution to this is to initialize the parameters randomly (i.e. it avoids the symmetry problem mentioned above)
+- One important note is that we usually prefer to initialize the parameters to low values: if we are using specific activation functions (e.g. tanh or sigmoid), the gradient values are too small (meaning that the gradient descent - how fast we update the parameters - is going to be slow)
