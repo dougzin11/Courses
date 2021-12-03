@@ -59,6 +59,6 @@ Output:
 
 ## Parameters vs Hyperparameters <a name="parameters_vs_hyperparameters"></a>
 - Parameters are variables that can be estimated/learned from the data
-- Hyperparameters cannot be estimated/learned from the data
+- Hyperparameters cannot be estimated/learned from the data. Their values are adjustable and tuned to obtain the model with optimal performance
 - Examples of parameters: ```W[1]```, ```b[1]```, ```W[2]```, ```b[2]```, etc
 - Examples of hyperparameters: ```alpha (learning rate)```, ```n. of iterations```, ```n. of hidden layers```, etc
