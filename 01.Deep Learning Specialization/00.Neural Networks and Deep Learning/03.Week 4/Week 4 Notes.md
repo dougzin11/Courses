@@ -4,6 +4,7 @@
 3. [Getting your Matrix Dimensions Right](#matrix_dimensions)
 4. [Building Blocks of Deep Neural Networks](#building_blocks)
 5. [Forward and Backward propagation](#forward_backward_propagation)
+6. [Parameters vs Hyperparameters](#parameters_vs_hyperparameters)
 
 
 ## Deep L-layer Neural Network <a name="deep_l_layer_nn"></a>
@@ -56,5 +57,8 @@ Output:
   - dA[l-1], where dA[l-1] = W[l].TdZ[l]
 ```
 
-## Parameters vs Hyperparameters
-
+## Parameters vs Hyperparameters <a name="parameters_vs_hyperparameters"></a>
+- Parameters are variables that can be estimated/learned from the data
+- Hyperparameters cannot be estimated/learned from the data
+- Examples of parameters: ```W[1]```, ```b[1]```, ```W[2]```, ```b[2]```, etc
+- Examples of hyperparameters: ```alpha (learning rate)```, ```n. of iterations```, ```n. of hidden layers```, etc
