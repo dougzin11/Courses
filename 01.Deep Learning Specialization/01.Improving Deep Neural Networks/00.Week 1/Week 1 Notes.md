@@ -3,7 +3,9 @@
 2. [Bias / Variance](#bias_variance)
 3. [Basic Recipe for Machine Learning](#basic_recipe)
 4. [Regularization](#regularization)
-5. [Why Regularization Reduces Overfitting](#why_regularization_reduces_overfitting)
+5. [Dropout Regularization](#dropout_regularization)
+6. [Why does drop-out work](#why_dropout_work)
+7. [Other Regularization Methods](#other_regularization_methods)
 
 
 ## Train / Dev / Test sets <a name="train_dev_test_set"></a>
@@ -65,4 +67,30 @@
   We can see that we are basically taking every element of the matrix ```W[l]``` and multiplying by ```1 - (learning_rate * lambda)/m)``` (which is lower than 1). This is why L2 is also called weight decay
   
 
-## Why Regularization Reduces Overfitting <a name="why_regularization_reduces_overfitting"></a>
+## Dropout Regularization <a name="dropout_regularization"></a>
+- The dropout regularization eliminates neurons (and its ingoing and outgoing weights) based on a probability. The dropout is done for each iteration of gradient descent
+- How to implement dropout ("Inverted Dropout", which is the most common dropout technique used):
+```
+Define keep_prob (probability to keep a neuron: 0 <= keep_prob <= 1) for a certain layer l
+d[l] = np.random.rand(a[l].shape[0], a[l].shape[1]) < keep_prob
+a[l] = np.multiply(d[l], a[l])
+a[l] /= keep_prob # we divide by keep_prob to avoid reducing the expected value of a[l] due to the dropout
+```
+- `d[l]` is used to define what neurons to zero out both in the forward and backward propagation steps
+- When predicting the output, we don't use dropout (otherwise we would have random output, generating noise to our predictions). Since we scaled the values of ```a[l]``` by dividing the original value by ```keep_prob```, we ensured that the expected values during the test time don't change even if we don't use dropout
+
+
+## Why does drop-out work? <a name="why_dropout_work"></a>
+- Intuition: the network can't rely on one single feature (because any of the features/neurons could go away at random due to the dropout regularization). It needs to spread out the weights
+- If you're more worried about some layers overfitting than others, you can set a lower `keep_prob` for them. However, this gives you even more hyperparameters to search for when using cross-validation
+
+
+## Other Regularization Methods <a name="other_regularization_methods"></a>
+1. Data Augmentation
+- When you increase the amount of data by adding slightly modified copies of the original data (e.g. flipping an image horizontaly)
+- The copies, however, would never be as good as new independent data
+
+2. Early stopping
+- First, we monitor the performance of the algorithm on both the training and validation set
+- We then stop the training when the performance on the validation set starts to degradate
+- This technique tries to simultaneously minimize the cost function as well as not overfit (which contradicts the orthogonalization principle - i.e. try to solve one problem at a time)
