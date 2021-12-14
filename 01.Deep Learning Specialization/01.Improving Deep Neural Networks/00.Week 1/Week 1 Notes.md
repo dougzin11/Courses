@@ -6,6 +6,7 @@
 5. [Dropout Regularization](#dropout_regularization)
 6. [Why does drop-out work](#why_dropout_work)
 7. [Other Regularization Methods](#other_regularization_methods)
+8. [Normalizing Inputs](#normalizing_inputs)
 
 
 ## Train / Dev / Test sets <a name="train_dev_test_set"></a>
@@ -94,3 +95,6 @@ a[l] /= keep_prob # we divide by keep_prob to avoid reducing the expected value 
 - First, we monitor the performance of the algorithm on both the training and validation set
 - We then stop the training when the performance on the validation set starts to degradate
 - This technique tries to simultaneously minimize the cost function as well as not overfit (which contradicts the orthogonalization principle - i.e. try to solve one problem at a time)
+
+## Normalizing Inputs <a name="normalizing_inputs"></a>
+- 
