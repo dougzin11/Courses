@@ -7,6 +7,8 @@
 6. [Why does drop-out work](#why_dropout_work)
 7. [Other Regularization Methods](#other_regularization_methods)
 8. [Normalizing Inputs](#normalizing_inputs)
+9. [Vanishing / Exploding Gradient](#vanishing_exploding_gradient)
+10. [Weight Initialization for Deep Networks](#weight_initialization)
 
 
 ## Train / Dev / Test sets <a name="train_dev_test_set"></a>
@@ -96,5 +98,27 @@ a[l] /= keep_prob # we divide by keep_prob to avoid reducing the expected value 
 - We then stop the training when the performance on the validation set starts to degradate
 - This technique tries to simultaneously minimize the cost function as well as not overfit (which contradicts the orthogonalization principle - i.e. try to solve one problem at a time)
 
+
 ## Normalizing Inputs <a name="normalizing_inputs"></a>
-- 
+- We usually normalize the inputs in order to speed up the training process: when we don't normalize, the ```W``` parameters (e.g. ```W1```, ```W2```, etc.) can have values on totally different scales, leading to a cost function with an enlogated shape which, in turn, makes the optimization through gradient descent slow
+- Normalizing the inputs allow the ```W``` parameters to have values on a similar scale, leading to a cost function with a consistent shape which, in turn, makes the optimization through gradient descent much faster
+- When normalizing the test set, the variance and mean should come from the training set
+
+
+## Vanishing / Exploding Gradient <a name="vanishing_exploding_gradient"></a>
+- The Vanishing / Exploding gradients occurs when your derivatives become very small or very big. This difficults training the model:
+  - Very small derivatives lead to a long time for the model to train 
+  - Very big derivatives lead to big updates which can make the model unstable and unable to learn the data
+- Carefully choosing how to initialize the weights partially solve this problem (but not completely)
+
+
+## Weight Initialization for Deep Networks <a name="weight_initialization"></a>
+- So lets say when we initialize ```W``` like this (better to use with tanh activation) - called Xavier Initialization:
+```
+np.random.rand(shape) * np.sqrt(1/n[l-1])
+```
+- Or we can initialize ```W``` like this (better to use with ReLU activation):
+```
+np.random.rand(shape) * np.sqrt(2/n[l-1])
+```
+- The idea behind these initializations is to initialize the weights such that the variance of the activations are the same across every layer. This constant variance helps prevent the gradient from exploding or vanishing
