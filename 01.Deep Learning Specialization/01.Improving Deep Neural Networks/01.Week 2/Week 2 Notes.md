@@ -1,6 +1,8 @@
 ## Table of contents
 1. [Mini Batch Gradient Descent ](#mini_batch_gradient_descent)
 2. [Understanding Mini Batch Gradient Descent](#understanding_mini_batch_gradient_descent)
+3. [Exponentially Weighted Averages](#exponentially_weighted_averages)
+4. [Bias Correction in Exponentially Weighted Averages](#bias_correction_exponentially_weighted_averages)
 
 
 ## Mini Batch Gradient Descent <a name="mini_batch_gradient_descent"></a>
@@ -27,5 +29,21 @@
 
 
 ## Exponentially Weighted Averages <a name="exponentially_weighted_averages"></a>
-- 
+- General equation:
+```
+V(theta) = Beta * V(theta-1) + (1 - Beta) * theta
+```
+where `V(theta-1)` corresponds to the equation above applied to the step `theta-1` and theta corresponds to the current value (e.g. today's temperature)
+- The equation above is calculating the exponentially weighted average across ~`(1/(1-Beta))` days. Therefore, when:
+  - `Beta = 0.9`, the formula above is averaging across the ~ last 10 days
+  - `Beta = 0.98` the formula above is averaging across the ~ last 50 days
+  - `Beta = 0.5` the formula above is averaging across the ~ last 2 days
 
+
+## Bias Correction in Exponentially Weighted Averages <a name="bias_correction_exponentially_weighted_averages"></a>
+- The bias correction helps make the exponentially weighted averages more accurate, specially at the initial phase of your estimate (where the estimator is underestimating the actual numbers)
+-  We have the following formula when implementing the bias correction:
+```
+V(theta) = ((Beta * V(theta-1) + (1 - Beta) * theta)/(1 - Beta^theta)
+```
+- It is possible to notice that when `theta` becomes larger (i.e. we are no longer at the initial phase of the estimation), `(1 - Beta^theta)` becomes close to 1 (since `Beta < 0`)
