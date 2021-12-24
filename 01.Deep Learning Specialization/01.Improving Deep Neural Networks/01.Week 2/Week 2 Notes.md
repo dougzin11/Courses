@@ -111,4 +111,4 @@ on iteration t:
 	W = W - learning_rate * VdW_corrected / (sqrt(SdW_corrected) + epsilon)
 	b = b - learning_rate * Vdb_corrected / (sqrt(Sdb_corrected) + epsilon)
 ```
-
+- Hyperparameters to tune: `Beta1`, `Beta2`, `learning_rate`, `epsilon`
