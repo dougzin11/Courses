@@ -3,6 +3,9 @@
 2. [Understanding Mini Batch Gradient Descent](#understanding_mini_batch_gradient_descent)
 3. [Exponentially Weighted Averages](#exponentially_weighted_averages)
 4. [Bias Correction in Exponentially Weighted Averages](#bias_correction_exponentially_weighted_averages)
+5. [Gradient Descent with Momentum](#gradient_descent_momentum)
+6. [RMSprop - Root Mean Square Prop](#rmsprop)
+7. [Adam Optimization](#adam_optimization)
 
 
 ## Mini Batch Gradient Descent <a name="mini_batch_gradient_descent"></a>
@@ -47,3 +50,65 @@ where `V(theta-1)` corresponds to the equation above applied to the step `theta-
 V(theta) = ((Beta * V(theta-1) + (1 - Beta) * theta)/(1 - Beta^theta)
 ```
 - It is possible to notice that when `theta` becomes larger (i.e. we are no longer at the initial phase of the estimation), `(1 - Beta^theta)` becomes close to 1 (since `Beta < 0`)
+
+
+## Gradient Descent with Momentum <a name="gradient_descent_momentum"></a>
+- The following block of pseudo code shows how to implement Gradient Descent with Momentum:
+```
+VdW = 0, Vdb = 0 (initialize the values equal to zero)
+on iteration t:
+	Compute dW and db     
+	
+	VdW = Beta * VdW + (1 - Beta) * dW
+	Vdb = Beta * Vdb + (1 - Beta) * db
+  
+  # Update the parameters W and b
+	W = W - learning_rate * VdW (instead of using dW we use Vdw)
+	b = b - learning_rate * Vdb (instead of using db we use Vdb)
+```
+
+
+## RMSprop - Root Mean Square Prop <a name="rmsprop"></a>
+- The following block of pseudo code shows how to implement RMSprop:
+```
+SdW = 0, Sdb = 0 (initialize the values equal to zero)
+on iteration t:
+	Compute dW and db
+	
+	SdW = (Beta * SdW) + (1 - Beta) * dW^2  # squaring is element-wise
+	Sdb = (Beta * Sdb) + (1 - Beta) * db^2  # squaring is element-wise
+  
+  # Update the parameters W and b
+	W = W - learning_rate * dW / (sqrt(SdW) + epsilon) # epsilon is added for numerical stability (e.g. avoid division by zero)
+	b = B - learning_rate * db / (sqrt(Sdb) + epsilon) # epsilon is added for numerical stability (e.g. avoid division by zero)
+```
+
+
+## Adam Optimization <a name="adam_optimization"></a>
+- Adam optimization combines RMSprop and Gradient Descent with Momentum together
+- The following block of pseudo code shows how to implement Adam Optimization:
+```
+VdW = 0, Vdb = 0, SdW = 0, Sdb = 0 (initialize the values equal to zero)
+on iteration t:
+	Compute dW and db          
+	
+  # Gradient Descent with Momentum
+	VdW = (Beta1 * VdW) + (1 - Beta1) * dW
+	Vdb = (Beta1 * Vdb) + (1 - Beta1) * db
+	
+  # RMSprop
+	SdW = (Beta2 * SdW) + (1 - Beta2) * dW^2
+	Sdb = (Beta2 * Sdb) + (1 - Beta2) * db^2
+	
+  # Bias correction
+	VdW_corrected = VdW / (1 - Beta1^t)
+	Vdb_corrected = Vdb / (1 - Beta1^t)
+			
+	SdW_corrected = SdW / (1 - Beta2^t)
+	Sdb_corrected = Sdb / (1 - Beta2^t)
+	
+  # Update parameters
+	W = W - learning_rate * VdW_corrected / (sqrt(SdW_corrected) + epsilon)
+	b = b - learning_rate * Vdb_corrected / (sqrt(Sdb_corrected) + epsilon)
+```
+
