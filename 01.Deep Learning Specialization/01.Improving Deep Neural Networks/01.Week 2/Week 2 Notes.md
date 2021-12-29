@@ -6,6 +6,8 @@
 5. [Gradient Descent with Momentum](#gradient_descent_momentum)
 6. [RMSprop - Root Mean Square Prop](#rmsprop)
 7. [Adam Optimization](#adam_optimization)
+8. [Learning Rate Decay](#learning_rate_decay)
+9. [The Problem of Local Optima](#problem_of_local_optima)
 
 
 ## Mini Batch Gradient Descent <a name="mini_batch_gradient_descent"></a>
@@ -112,3 +114,21 @@ on iteration t:
 	b = b - learning_rate * Vdb_corrected / (sqrt(Sdb_corrected) + epsilon)
 ```
 - Hyperparameters to tune: `Beta1`, `Beta2`, `learning_rate`, `epsilon`
+
+
+## Learning Rate Decay <a name="learning_rate_decay"></a>
+- It corresponds to the process of slowly reducing the `learning_rate` over time
+- Reducing the `learning_rate` over time allows the model to take much bigger steps during its initial phase (when the algorithm is far away from the local optima) and take small steps when getting closer to the local optima (avoiding oscillations around the optimum point)
+- One way to implement learning rate decay is to set the `learning_rate = (1 / (1 + decay_rate * epoch_num)) * learning_rate_0`, where:
+	- `learning_rate_0` is the initial `learning_rate`
+	- `epoch_num` is the number of epoch the algorithm is currently in
+	- `decay_rate` is a hyperparameter to tune
+- Other learning rate decay implementations:
+	- `learning_rate = (0.95 ^ (epoch_num)) * learning_rate_0`
+	- `learning_rate = (k / sqrt(epoch_num)) * learning_rate_0`
+
+
+## The Problem of Local Optima <a name="problem_of_local_optima"></a>
+- The concept of local optima in low dimensions is not likely to occur when implementing deep neural networks. This is because for a point to be considered local optima, all the dimensions need to have a convex like function and the chance of that happening in deep neural networks (when the number of dimensions is extremely high) is very low
+- In high dimensions, it is much more likely to get stuck in plateaus: regions where the derivative is close to zero for a long time
+	- This is where optimization algorithms like momentum, RMSprop or Adam can help you get out of plateaus
