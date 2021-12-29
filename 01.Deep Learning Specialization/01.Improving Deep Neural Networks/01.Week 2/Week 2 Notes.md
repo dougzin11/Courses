@@ -1,5 +1,5 @@
 ## Table of contents
-1. [Mini Batch Gradient Descent ](#mini_batch_gradient_descent)
+1. [Mini Batch Gradient Descent](#mini_batch_gradient_descent)
 2. [Understanding Mini Batch Gradient Descent](#understanding_mini_batch_gradient_descent)
 3. [Exponentially Weighted Averages](#exponentially_weighted_averages)
 4. [Bias Correction in Exponentially Weighted Averages](#bias_correction_exponentially_weighted_averages)
