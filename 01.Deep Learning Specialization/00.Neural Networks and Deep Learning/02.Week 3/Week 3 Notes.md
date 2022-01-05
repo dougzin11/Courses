@@ -43,7 +43,7 @@
   - ```z[i] = W[i].Tx + b[i]```, where ```[i]``` represents the identification of each layer in the Neural Network the calculation is being performed
   - ```a[i] = sigmoid(z[i])```, where ```[i]``` represents the identification of each layer in the Neural Network the calculation is being performed
   - where:
-    - ```W[i].T``` is a matrix obtained by stacking the weights ```W``` of each node from layer ```[i]``` as rows (e.g. ```W[1].T``` is obtained by stacking ```w1[1]T``` (1st row), ```w2[1]T``` (2nd row), ...)
+    - ```W[i].T``` is a matrix obtained by stacking the weights ```W``` of each node from layer ```[i]``` as rows (e.g. ```W[1]``` is obtained by stacking ```W1[1]T``` (1st row), ```W2[1]T``` (2nd row), ...)
     - ```b[i]``` is a matrix obtained by stacking the wegiths ```b``` of each node from layer ```[i]``` as rows (e.g. ```b[1]``` is obtained by stacking ```b1[1]``` (1st row), ```b2[1]``` (2nd row), ...)
     - ```a[i]``` is obtained by applying the sigmoid function element-wise in the ```z[i]``` matrix.
 
