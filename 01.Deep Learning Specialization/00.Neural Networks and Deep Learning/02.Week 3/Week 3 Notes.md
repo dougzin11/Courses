@@ -40,8 +40,8 @@
 ![nn_cac](https://user-images.githubusercontent.com/36196866/142727274-d1f7a82a-13a9-47f4-871a-461841ae9815.PNG)
 
 - Vectorizing the equations above we have:
-  - ```z[i] = W[i].Tx + b[i]```, where ```[i]``` represents the identification of each layer in the Neural Network the calculation is beign performed
-  - ```a[i] = sigmoid(z[i])```, where ```[i]``` represents the identification of each layer in the Neural Network the calculation is beign performed
+  - ```z[i] = W[i].Tx + b[i]```, where ```[i]``` represents the identification of each layer in the Neural Network the calculation is being performed
+  - ```a[i] = sigmoid(z[i])```, where ```[i]``` represents the identification of each layer in the Neural Network the calculation is being performed
   - where:
     - ```W[i].T``` is a matrix obtained by stacking the weights ```W``` of each node from layer ```[i]``` as rows (e.g. ```W[1]``` is obtained by stacking ```W1[1]T``` (1st row), ```W2[1]T``` (2nd row), ...)
     - ```b[i]``` is a matrix obtained by stacking the wegiths ```b``` of each node from layer ```[i]``` as rows (e.g. ```b[1]``` is obtained by stacking ```b1[1]``` (1st row), ```b2[1]``` (2nd row), ...)
