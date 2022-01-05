@@ -7,6 +7,7 @@
 6. [Parameters vs Hyperparameters](#parameters_vs_hyperparameters)
 
 
+# Deep Neural Network
 ## Deep L-layer Neural Network <a name="deep_l_layer_nn"></a>
 - We will use the notation ```L``` to denote the number of layers in a NN
 - ```n[l]``` is the number of neurons in a specific layer ```l```:
