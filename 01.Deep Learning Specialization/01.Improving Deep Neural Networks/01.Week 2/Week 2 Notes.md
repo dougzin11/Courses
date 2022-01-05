@@ -10,6 +10,7 @@
 9. [The Problem of Local Optima](#problem_of_local_optima)
 
 
+# Optimization Algorithms
 ## Mini Batch Gradient Descent <a name="mini_batch_gradient_descent"></a>
 - Mini batch gradient descent is a variation of the "traditional" Gradient Descent (also called Batch Gradient Descent) that splits the training set into small groups (called batches) that are used to train the model
 - Therefore, we have the following differences between  **Batch Gradient Descent** and **Mini Batch Gradient Descent**:
