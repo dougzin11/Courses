@@ -17,7 +17,7 @@
   - Train set: as the name suggests, it is used to train the model
   - Dev set (also called development set or hold-out cross validation): it is used to define the best hyperparameters for the model
   - Test set: it is used to evaluate the final model (already tuned based on the Dev set), providing an unbiased assessment
-- It important that the Train, Dev and Test set come from the same distribution (otherwhise, you will be training/tuning your model based on a scenario that is totally different than what you encounter in the Test set)
+- It important that the Train, Dev and Test set come from the same distribution (otherwise, you will be training/tuning your model based on a scenario that is totally different than what you encounter in the Test set)
 
 
 ## Bias / Variance <a name="bias_variance"></a>
