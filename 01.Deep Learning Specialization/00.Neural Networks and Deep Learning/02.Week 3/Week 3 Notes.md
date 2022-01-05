@@ -6,6 +6,8 @@
 5. [Why do you need non-linear activation functions](#non_linear_activation_functions)
 6. [Random Initialization](#random_initialization)
 
+
+# Shallow Network
 ## Neural Networks Overview <a name="neural_networks_overview"></a>
 - A simple Neural Network (with 2 layers - we don't count the input layer, as we will see later) can look like the image below
 
