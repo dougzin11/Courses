@@ -11,6 +11,7 @@
 10. [Weight Initialization for Deep Networks](#weight_initialization)
 
 
+# Setting up your Machine Learning Application
 ## Train / Dev / Test sets <a name="train_dev_test_set"></a>
 - The available data is usually breakdown into 3 different sets:
   - Train set: as the name suggests, it is used to train the model
@@ -38,6 +39,7 @@
   - Try to find a more appropriate Neural Network architecture
 
 
+# Regularizing your Neural Network
 ## Regularization <a name="regularization"></a>
 - As mentioned in the section above, Regularization is one of the techniques that we can use in order to reduce High Variance (e.g. reduce overfitting)
 - Regularization for Logistict Regression:
@@ -99,6 +101,7 @@ a[l] /= keep_prob # we divide by keep_prob to avoid reducing the expected value 
 - This technique tries to simultaneously minimize the cost function as well as not overfit (which contradicts the orthogonalization principle - i.e. try to solve one problem at a time)
 
 
+# Setting up your Optimization Problem
 ## Normalizing Inputs <a name="normalizing_inputs"></a>
 - We usually normalize the inputs in order to speed up the training process: when we don't normalize, the ```W``` parameters (e.g. ```W1```, ```W2```, etc.) can have values on totally different scales, leading to a cost function with an enlogated shape which, in turn, makes the optimization through gradient descent slow
 - Normalizing the inputs allow the ```W``` parameters to have values on a similar scale, leading to a cost function with a consistent shape which, in turn, makes the optimization through gradient descent much faster
