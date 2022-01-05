@@ -6,6 +6,8 @@
 5. [Computation Graph](#computation_graph)
 6. [Logistic Regression Gradient Descent](#logistic_regression_gradient_descent)
 
+
+# Logistic Regression as a Neural Network
 ## Notation used along the course <a name="notation"></a>
 - ```m_train``` corresponds to the number of training examples
 - ```m_test``` corresponds to the number of test examples
