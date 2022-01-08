@@ -88,4 +88,14 @@ Given Z[l] = [z(1), ..., z(m)], i = 1 to m (for each input):
 t = e^(Z[L]) # element-wise exponentiation
 y_hat = A[L] = e^(Z[L]) / sum(t)
 ```
+- If `C = 2`, then the Softmax reduces to logistic regression
 
+## Training a Softmax Classifier <a name="training_softmax"></a>
+- Forward propagation step:
+  - Loss function: `L(y_hat, y) = -sum(y[j] * log(y_hat[j])) #for j from 1 to C`
+    - Example: `y = [0 1 0 0]`
+      - `L(y_hat, y) = -1 * log(y_hat[2])` (since `y[1]`, `y[3]`, `y[4]` are all 0)
+      - In order to minimize the loss function, we want to minimize `-log(y_hat[2])`. Or in other words, maximize `y_hat[2]` (but remember that `y_hat` can never be bigger than 1 because they are probabilities)
+  - Cost function: `J(W[1], b[1], ...) = -(1/m) * sum(L(y_hat[i], y[i])) #for i = 0 to m_train`
+- Backward propagation step:
+  - `dJ/dZ[L] = dZ[L] = Y_hat = Y`
