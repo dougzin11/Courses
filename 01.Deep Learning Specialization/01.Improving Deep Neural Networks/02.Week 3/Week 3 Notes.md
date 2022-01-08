@@ -48,6 +48,7 @@ Given Z[l] = [z(1), ..., z(m)], i = 1 to m (for each input):
 ## Fitting Batch Norm into a Neural Network <a name="fitting_batch_norm"></a>
 - The figure below shows how Batch Normalization works in a Neural Network:
 <img width="746" alt="Screen Shot 2022-01-08 at 14 31 36" src="https://user-images.githubusercontent.com/36196866/148653842-6f47fe12-42b1-4e5c-ba31-3cc8fc3e6e87.png">
+
 - It is possible to see that the Batch Normalization is implemented after the calculation of `Z[l]` and the activation function uses the normalized version of the `Z[l]` instead of its original value
 - In addition, we can see that the parameters of the Neural Network become:
   - `W[1]`, ..., `W[L]`, `beta[1]`, `gamma[1]`, ..., `beta[L]`, `gamma[L]` (we will see below why `b[1]`, ..., `b[L]` are not parameters when applying Batch Normalization)
@@ -84,7 +85,7 @@ Given Z[l] = [z(1), ..., z(m)], i = 1 to m (for each input):
   - For example, if `C = number of classes = 4`, then the output layer has `Ny = C = 4` hidden units
 - Each hidden unit in the output layer returns the probability for each of the `C` classes. The standard model for getting your network to do this uses what's called a Softmax layer in the output layer:
 ```
-t = e^(Z[L]) # lement-wise exponentiation
+t = e^(Z[L]) # element-wise exponentiation
 y_hat = A[L] = e^(Z[L]) / sum(t)
 ```
 
