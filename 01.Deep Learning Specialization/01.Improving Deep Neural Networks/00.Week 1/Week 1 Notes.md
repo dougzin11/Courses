@@ -106,6 +106,7 @@ a[l] /= keep_prob # we divide by keep_prob to avoid reducing the expected value 
 - We usually normalize the inputs in order to speed up the training process: when we don't normalize, the ```W``` parameters (e.g. ```W1```, ```W2```, etc.) can have values on totally different scales, leading to a cost function with an enlogated shape which, in turn, makes the optimization through gradient descent slow
 - Normalizing the inputs allow the ```W``` parameters to have values on a similar scale, leading to a cost function with a consistent shape which, in turn, makes the optimization through gradient descent much faster
 - When normalizing the test set, the variance and mean should come from the training set
+- For more information about why normalization helps Neural Networks, Timo Stöttner has written a nice article about it [here](https://towardsdatascience.com/why-data-should-be-normalized-before-training-a-neural-network-c626b7f66c7d)
 
 
 ## Vanishing / Exploding Gradient <a name="vanishing_exploding_gradient"></a>
