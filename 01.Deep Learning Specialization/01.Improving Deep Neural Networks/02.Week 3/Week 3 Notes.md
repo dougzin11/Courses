@@ -6,6 +6,7 @@
 5. [Why does Batch Normalization work?](#why_does_batch_norm_work)
 6. [Batch Normalization at test time](#batch_norm_at_test_time)
 7. [Softmax Regression](#softmax_regression)
+8. [Training a Softmax Classifier](#training_softmax)
 
 
 # Hyperparameter Tuning 
@@ -78,6 +79,7 @@ Given Z[l] = [z(1), ..., z(m)], i = 1 to m (for each input):
 - During testing, however, we might need to process examples one at a time (i.e. we don't have a mini-batch) and yhe mean and the variance of one example does not make sense
 - So during test time, we come up with a separate estimate of the mean and variance:
   - We can estimate using exponentially weighted averages across the mini-batches
+
 
 # Multi-class Classification
 ## Softmax Regression <a name="softmax_regression"></a>
