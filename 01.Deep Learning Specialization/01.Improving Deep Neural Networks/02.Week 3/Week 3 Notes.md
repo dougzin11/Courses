@@ -42,3 +42,14 @@ Given Z[l] = [z(1), ..., z(m)], i = 1 to m (for each input):
 - `gamma` and `beta` are learnable parameters (just like `W` and `b`)
 
 ## Fitting Batch Norm into a Neural Network <a name="fitting_batch_norm"></a>
+- The figure below shows how Batch Normalization works in a Neural Network:
+<img width="746" alt="Screen Shot 2022-01-08 at 14 31 36" src="https://user-images.githubusercontent.com/36196866/148653842-6f47fe12-42b1-4e5c-ba31-3cc8fc3e6e87.png">
+- It is possible to see that the Batch Normalization is implemented after the calculation of `Z[l]` and the activation function uses the normalized version of the `Z[l]` instead of its original value
+- In addition, we can see that the parameters of the Neural Network become:
+  - `W[1]`, ..., `W[L]`, `beta[1]`, `gamma[1]`, ..., `beta[L]`, `gamma[L]` (we will see below why `b[1]`, ..., `b[L]` are not parameters when applying Batch Normalization)
+- In practice, Batch normalization is usually applied mini-batches of the training set. This means that:
+  - The mean is calculated using only the training examples inside of the correspondent mini-batch
+  - The variance is calculated using only the training examplesi nside of the correspondent mini-batch
+- One important note is that when implementing Batch Normalization:
+  - `b[1]`, ..., `b[L]` will be subtracted out by the the Batch Normalization (since we subtract the mean). So adding any constant to all of the examples within a mini-batch, it does not change anything because any constant added will get canceled out by the mean subtraction step
+- `beta[l]` and `gamma[l]` will have the exactly same shape of `Z[l]`: `(n[l], m)`
