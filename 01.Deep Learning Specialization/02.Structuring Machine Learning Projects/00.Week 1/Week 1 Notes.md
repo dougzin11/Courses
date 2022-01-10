@@ -4,6 +4,9 @@
 3. [Satisficing and Optimizing metric](#satisficing_and_optimizing_metric)
 4. [Train/dev/test distributions](#train_dev_test_distribution)
 5. [When to change dev/test sets and metrics](#when_to_change_dev_test_sets_and_metrics)
+6. [Why human-level performance](#why_human_level_performance)
+7. [Avoidable bias](#avoidable_bias)
+8. [Improving your model performance](#improving_model_performance)
 
 
 # Introduction to ML Strategy
@@ -78,4 +81,42 @@
 
 
 # Comparing to human-level performance
-## Why human-level performance
+## Why human-level performance <a name="why_human_level_performance"></a>
+- We compare to human-level performance because of two main reasons:
+  - Because of advances in deep learning, machine learning algorithms are suddenly working much better and so it has become much more feasible in a lot of application areas for machine learning algorithms to actually become competitive with human-level performance
+  - It turns out that the workflow of designing and building a machine learning system is much more efficient when you're trying to do something that humans can also do
+- However, there is a theoretical limit that a model can never surpass called `Bayes optimal error`. It turns out that for a lot of tasks there isn't much error range between human-level error and Bayes optimal error
+
+
+## Avoidable bias <a name="avoidable_bias"></a>
+- As an example, suppose we have the following model performance of a classifier built to identify whether or not an image contains a cat:
+
+| Scenario | Training Error	| Dev Error | Human Error |
+| -------- | -------------- | --------- | ----------- |
+| A        | 8%             | 10%       | 1%          |
+| B        | 8%             | 10%       | 7.5%        |
+  
+- In scenario A: the classifier is significantly worse than human-level performance on the training set. In this case, we would focus on reducing bias
+- In scenario B: the classifier is close to the human-level performance on the training set, but development error is a bit higher. In this case, we would focus on reducing the variance
+- We can follow the 2 lines of thought mentioned above because in a lot of tasks (including computation vision, which is the case mentioned above) we can use human-level error as a proxy for Bayes optimal error
+- So having an estimate of human-level performance gives you an estimate of Bayes error, allowing you to more quickly make decisions as to whether you should focus on trying to reduce bias or trying to reduce variance
+- When you surpass the human-level performance, you might no longer have a good estimate of Bayes error, making it difficult for you to know which approach you should focus on (i.e. reduce bias or reduce variance)
+- 1 new definition may be useful: `Avoidable bias = Training error - Bayes optimal error`, where sometimes we can use the human-level error as a proxy for Bayes optimal error
+
+  
+## Improving your model performance <a name="improving_model_performance"></a>
+- The two fundamental asssumptions of supervised learning:
+  1. You can fit the training set pretty well. This is roughly saying that you can achieve low avoidable bias
+  2. The training set performance generalizes pretty well to the dev/test set. This is roughly saying that variance is not too bad
+- To improve your deep learning supervised system follow these guidelines:
+  1. Look at the difference between human level error and the training error - avoidable bias
+  2. Look at the difference between the dev/test set and training set error - Variance.
+  3. Decide which of the 2 errors (bias or variance) you should focus on
+- If avoidable bias is large you have these options:
+  1. Train bigger model
+  2. Train longer/better optimization algorithm (like Momentum, RMSprop, Adam)
+  3. Find better NN architecture/hyperparameters search
+- If variance is large you have these options:
+  1. Get more training data
+  2. Regularization (L2, Dropout, data augmentation)
+  3. Find better NN architecture/hyperparameters search
