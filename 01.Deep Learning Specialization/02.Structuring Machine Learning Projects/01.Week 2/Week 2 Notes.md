@@ -1,6 +1,6 @@
 ## Table of contents
 1. [Carrying out error analysis](#carry_error_analysis)
-2. [Cleaning up incorrectly labeleded data](#incorrectly_labeled_data)
+2. [Cleaning up incorrectly labeled data](#incorrectly_labeled_data)
 3. [Training and Testing on different distributions](#training_testing_different_distributions)
 4. [Bias and Variance with mismatched data distributions](#bias_variance_mismatched_data)
 5. [Addressing Data Mismatch](#addressing_data_mismatch)
@@ -20,7 +20,7 @@
     - However, if a lot of them are dogs (e.g. 50 dogs out of the 100 examples), then focusing on making your model do better on dogs will decrease your error to 5.0% in the best scenario (which sounds much more significant gain)
 
 
-## Cleaning up incorrectly labeleded data <a name="incorrectly_labeled_data"></a>
+## Cleaning up incorrectly labeled data <a name="incorrectly_labeled_data"></a>
 - Deep Learning algorithms are quite robust to **random** errors in the **training set**, as long as the percentage of mislabeled data is not high
 - However, Deep Learning algorithms are less robust to **systematic** errors in the **training set** (e.g. white dogs consistently labeled as cats may result in the algorithm learning to always classify white dogs as cats)
 - For mislabeled cases in the **dev/test set**, it is good to perform an error analysis. For example:
