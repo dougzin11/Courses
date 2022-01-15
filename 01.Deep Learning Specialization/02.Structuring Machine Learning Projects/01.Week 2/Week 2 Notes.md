@@ -96,7 +96,7 @@
     - If the difference is big then we have a high variance problem
   4. Dev error
     - Calculates `data mismatch = dev error - train-dev error`
-    - If the difference is much bigger then the train-dev error we have a Data mismatch problem
+    - If the difference is much bigger than the train-dev error we have a Data mismatch problem
     - - Sometimes this error can be even lower than the Train and/or Train-dev error. One reason could be the fact that the dev set may be easier for the model to predict
   4. Test error
     - Calculates `degree of overfitting to dev set = test error - dev error`
@@ -121,15 +121,40 @@
   - So for example, maybe you could have the neural network learn to recognize objects like cats and then use that knowledge or use part of that knowledge to help you do a better job reading x-ray scans
 - To do transfer learning, here is what you could do:
   1. Small amount of data available: delete the last layer of the NN (i.e. keep all the other weights fixed) and add a new last layer with weights to be learned during the training process
-  2. Enough data available: you can keep less layers of the original NN (i.e. delete the last 4 layers and not only the last one) and add new layers to be trained
+  2. Enough data available: you can keep fewer layers of the original NN (i.e. delete the last 4 layers and not only the last one) and add new layers to be trained
 - When we talk about Transfer Learning, 2 new definitions may come up:
   - Pre-training: corresponds to the initial phase of training on the original task
   - Fine-tuning: corresponds to the training phase on the new task
 - Transfer Learning usually makes sense in the following scenarios:
   1. When the original task has the same input as the new task (e.g. original and new task are trying to predict images - not necessarily the same type of images)
   2. You have a lot of data available for the original task you are transferring from and relatively less data for the new task you are transferring to
-  3. Low level features from the original task could be helpful for learning the new task
+  3. Low-level features from the original task could help learn the new task
 
 
 ## Multi-task Learning <a name="multi_task_learning"></a>
-- 
+- Whereas in transfer learning, you have a sequential process where you learn from task A and then transfer that to task B. In multi-task learning, you start simultaneously, trying to have one neural network do several things at the same time. And then each of these tasks hopefully helps all of the other tasks
+- Imagine the following example:
+  - You are building an autonomous vehicle that detects pedestrians, stop signs, cars and traffic lights
+  - Then `Y` will have a shape of `(4, m)`. This is different than Softmax regression because the same example can have multiple labels (and not only a single one, which is the case for Softmax)
+  - Loss function: `L(y_hat(i)_j, y(i)_j) = -y(i)_j * log(y_hat(i)_j) - (1 - y(i)_j) * log(1 - y_hat(i)_j)`
+  - Cost function: `Cost = (1/m) * sum(sum(L(y_hat(i)_j, y(i)_j)))`, where `i = 1,...,m` and `j = 1,...,4`
+  - This is an example of multi-task learning: you are building one single Neural Network to solve 4 different problems
+    - You could have trained 4 different Neural Networks to solve each problem separately. But if some of the earlier features in neural network can be shared between these different types of objects, then you find that training one neural network to do four things results in better performance than training four completely separate neural networks to do the four tasks separately
+- Multi-task learning will also work if y isn't complete for some labels. Example:
+```
+Y = [1 1 1 ... ?]
+    [0 0 1 ... 1]
+    [? 1 ? ... 0]
+```
+  - And in this case the loss function will be different: `Loss = (1/m) * sum(sum(L(y_hat(i)_j, y(i)_j)` for all `j` which `y(i)_j != ?))`
+- Multi-task learning makes sense when:
+  1. Training on a set of tasks that could benefit from having shared lower-level features
+    - Example:
+      - You have 100 tasks, with 1,000 training example for each task
+      - If you train 100 models to solve each task separately, you end-up having only 1,000 training examples
+      - However, solving all the 100 tasks combined you end-up having 99,000 more training examples, which can give a big boost to your model performance. And here, each task can provide some data or provide some knowledge that help every one of the other tasks in this list of 100 tasks
+  2. Usually, amount of data you have for each task is quite similar
+  3. Can train a big enough network to do well on all the tasks
+
+
+# End-to-end deep learning <a name="end_to_end_deep_learning"></a>
