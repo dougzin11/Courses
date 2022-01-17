@@ -155,6 +155,3 @@ Y = [1 1 1 ... ?]
       - However, solving all the 100 tasks combined you end-up having 99,000 more training examples, which can give a big boost to your model performance. And here, each task can provide some data or provide some knowledge that help every one of the other tasks in this list of 100 tasks
   2. Usually, amount of data you have for each task is quite similar
   3. Can train a big enough network to do well on all the tasks
-
-
-# End-to-end deep learning <a name="end_to_end_deep_learning"></a>
