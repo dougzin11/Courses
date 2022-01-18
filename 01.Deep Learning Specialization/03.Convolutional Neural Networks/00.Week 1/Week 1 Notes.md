@@ -3,6 +3,8 @@
 2. [Edge Detection example](#edge_detection_example)
 3. [Padding](#padding)
 4. [Strided Convolutions](#strided_convolutions)
+5. [Convolution over volumes](#convolution_over_volumes)
+6. [One Layer of a Convolutional Network](#one_layer_conv_network)
 
 
 # Convolutional Neural Networks
@@ -72,7 +74,7 @@
   - This corresponds to the process of adding rows/columns to the image before convolution
   - We will call the padding amount `P` the number of row/columns that we will insert in the top, bottom, left and right of the image (e.g. when we apply a padding of `P` = 1 on an image `3x3`, then we end up with an image of `4x4`)
 - When applying padding, the output matrix will have a shape defined by the general rule below:
-  - If a matrix `nxn` is convolved with `fxf` filter/kernel and padding p give us `n+2p-f+1 x n+2p-f+1` matrix. Example:
+  - If a matrix `nxn` is convolved with `fxf` filter/kernel and padding, the output matrix will be a `n+2p-f+1 x n+2p-f+1` matrix. Example:
     - `n = 6`, `f = 3`, and `p = 1`: the output matrix will have `n+2p-f+1 = 6+2-3+1 = 6` (the size of the image after convolution remains intact)
 - Padding terminologies that are important:
   - `Valid convolutions`: it means no padding
@@ -83,9 +85,33 @@
 
 
 ## Strided Convolutions <a name="strided_convolutions"></a>
+- Stride (defined by the variable `S`) corresponds to the number of rows/columns (in an image it would mean the number of pixels) that we jump when we move the filter/kernel during the convolution process
+- When applying stride, the output matrix will have a shape defined by the general rule below:
+  - If a matrix `nxn` is convolved with `fxf` filter/kernel, padding `p` and stride `s`, the output matrix will be a `((n+2p-f)/s)+1 x ((n+2p-f)/s)+1` matrix
+  - When the `((n+2p-f)/s)+1` is not an integer, we take the floor value (i.e. we round down to the nearest integer)
+- In math textbooks, the convolution operation adds one more step: it flips the filter both in the horizontal and vertical axis before actually doing the convolution. However, by convention, in machine learning, we usually do not bother with this flipping operation (when we do not flip the filter, we are technically doing what is called a cross-correlation operation)
 
 
+## Convolution over volumes <a name="convolution_over_volumes"></a>
+- In this section, we will see how to convolve 3D images
+- A 3D image has the following properties: `image height`, `image width` and `image # of channels`
+- Similarly, our filter/kernel applied in the convolution process will also have the same 3 properties: `filter height`, `filter width` and `filter # of channels`
+  - To convolve a 3D image, the number of channels in the image and the filter/kernel has to be the same: `image # of channels` = `filter # of channels`
+- Below there is an example (image taken from the course):
+  - Input image of `6x6x3`
+  - Filter of `3x3x3`
+  - Stride `S = 1` and Padding `P = 0` 
+  - Output of `4x4x1`
+
+![Screen Shot 2022-01-18 at 14 15 28](https://user-images.githubusercontent.com/36196866/149985898-a242a74a-9807-492c-81bc-88ba421d1767.png)
+
+- It is also possible to convolve to multiple filters (image taken from the course):
+
+![Screen Shot 2022-01-18 at 14 22 26](https://user-images.githubusercontent.com/36196866/149986997-4451a3d9-5a53-4481-b140-74d58f412f65.png)
+
+- When using multiple filters, the output matrix have the shape of `(n+2p-f)/s)+1 x ((n+2p-f)/s)+1 x n_c`, where `n_c` corresponds to the number of filters used
 
 
+## One Layer of a Convolutional Network <a name="one_layer_conv_network"></a>
 
 
