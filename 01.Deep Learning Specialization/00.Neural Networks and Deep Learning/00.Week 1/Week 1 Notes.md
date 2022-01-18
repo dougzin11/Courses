@@ -1,5 +1,5 @@
 # What is a Neural Network?
-- A Neural Network consits of many processing units (called nodes) that are interconnected and organized into layers.
+- A Neural Network consists of many processing units (called nodes) that are interconnected and organized into layers.
 - Each node can be connected to several nodes from different layers (beneath or above it), sending the information across the whole Neural Network.
 - For each connection, the Network will assign weights - numbers/values that are optimized through Gradient Descent.
 
