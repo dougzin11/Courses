@@ -97,7 +97,7 @@
 - A 3D image has the following properties: `image height`, `image width` and `image # of channels`
 - Similarly, our filter/kernel applied in the convolution process will also have the same 3 properties: `filter height`, `filter width` and `filter # of channels`
   - To convolve a 3D image, the number of channels in the image and the filter/kernel has to be the same: `image # of channels` = `filter # of channels`
-- Below there is an example (image taken from the course):
+- Below there is an example **(image taken from the course)**:
   - Input image of `6x6x3`
   - Filter of `3x3x3`
   - Stride `S = 1` and Padding `P = 0` 
@@ -105,7 +105,7 @@
 
 ![Screen Shot 2022-01-18 at 14 15 28](https://user-images.githubusercontent.com/36196866/149985898-a242a74a-9807-492c-81bc-88ba421d1767.png)
 
-- It is also possible to convolve to multiple filters (image taken from the course):
+- It is also possible to convolve to multiple filters **(image taken from the course)**:
 
 ![Screen Shot 2022-01-18 at 14 22 26](https://user-images.githubusercontent.com/36196866/149986997-4451a3d9-5a53-4481-b140-74d58f412f65.png)
 
@@ -113,5 +113,32 @@
 
 
 ## One Layer of a Convolutional Network <a name="one_layer_conv_network"></a>
+- A Convolutional layer is composed of the following steps:
+  1. Convolution step
+  2. Add bias
+  3. Apply a non-linearity function
+- See below a diagram of the above steps mentioned **(image taken from the course)**
 
+![Screen Shot 2022-01-18 at 14 55 40](https://user-images.githubusercontent.com/36196866/149992237-c9bc5b55-4c19-49a9-98f9-0e724a6c7af8.png)
+
+- Mapping a convolutional layer to a standard neural network layer, we have:
+  - Input image: plays the role of `A[0]`
+  - Filters: plays the role of the weight `W[1]`
+  - Output matrix: plays the role of `A[1] = relu(W[1]*A[0] + b[1])`
+- Notations for this course:
+  - `f[l]` = filter size for layer `l`
+  - `p[l]` = padding for layer `l`
+  - `s[l]` = stride for layer `l`
+  - `n_c[l]` = number of filters in layer `l`
+  - Input of layer `l`: `n_h[l-1] x n_w[l-1] x n_c[l-1]`
+  - Output of layer `l`: `n_h[l] x n_w[l] x n_c[l]`, where:
+    - `n_h[l] = floor of ((n_h[l-1] + 2p[l] - f[l])/s[l] + 1)`
+    - `n_w[l] = floor of ((n_w[l-1] + 2p[l] - f[l])/s[l] + 1)`
+- Each filter is: `f[l] x f[l] x n_c[l-1]`
+- Activations: `A[l]` has the shape of `m x n_h[l] x n_w[l] x n_c[l]`, where `m` corresponds to the number of training examples in a batch or mini batch
+- Weights: `f[l] x f[l] x n_c[l-1] x n_c[l]`
+- Bias: `1 x 1 x 1 x n_c[l]`
+
+
+## 
 
