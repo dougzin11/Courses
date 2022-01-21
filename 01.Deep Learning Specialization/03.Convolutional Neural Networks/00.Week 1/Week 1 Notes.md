@@ -5,6 +5,9 @@
 4. [Strided Convolutions](#strided_convolutions)
 5. [Convolution over volumes](#convolution_over_volumes)
 6. [One Layer of a Convolutional Network](#one_layer_conv_network)
+7. [Simple Convolutional Network Example](#simple_convolutional_network_example)
+8. [Pooling layers](#pooling_layers)
+9. [Why Convolutions?](#why_convolutions)
 
 
 # Convolutional Neural Networks
@@ -140,5 +143,34 @@
 - Bias: `1 x 1 x 1 x n_c[l]`
 
 
-## 
+## Simple Convolutional Network Example <a name="simple_convolutional_network_example"></a>
+- The image below shows a simple convolutional network example
 
+  <img width="911" alt="Screen Shot 2022-01-21 at 10 40 09" src="https://user-images.githubusercontent.com/36196866/150536753-c6306d77-589d-49a1-ab7c-60d1d64f1ae9.png">
+
+- Type of layers in a common convolutional network:
+  - Convolution
+  - Pooling
+  - Fully connected
+
+
+## Pooling layers <a name="polling_layers"></a>
+- Convolutional Neural Networks often use pooling layers to reduce the size of the representation, speed up computation, as well as to make some of the features it detects more robust
+- Max pooling example with `f = 2`, `s = 2` and `p = 0` hyperparameters **(image taken from the course)**:
+
+![Screen Shot 2022-01-21 at 10 46 23](https://user-images.githubusercontent.com/36196866/150537612-062f9873-d5d5-40cb-a24b-81faad760b1e.png)
+
+- When applying pooling layers to 3D inputs, we simply use the same pooling layer across all the input channels. Because of this, the output size after a pooling layer can also be calculated by the general formula given before (with a small tweek): `(n+2p-f)/s)+1 x ((n+2p-f)/s)+1 x n_i` 
+  - where `n_i` is the number of channels in the input image feeding the pooling layer (before, the number of channels was `n_c` - number of filters applied in the convolution)
+- It is important to note that pooling layers have no parameters to learn
+- Hyperparameters of pooling layers:
+  - `f`: filter size
+  - `s`: stride
+  - `type of pooling`: max pooling or average pooling, for example
+  - `p`: padding - this is hardly used, with `p = 0` the most commin value by far
+
+
+## Why Convolutions? <a name="why_convolutions"></a>
+- Two main advantages of Convolutional layers over just fully connected layers:
+  1. Parameter sharing: A feature detector (such as a vertical edge detector) that's useful in one part of the image is probably useful in another part of the image
+  2. Sparsity of connections: In each layer, each output value depends only on a small number of inputs which makes it translation invariance
