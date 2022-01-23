@@ -1,7 +1,7 @@
 ## Table of contents
-1. [Orthogonalization](#orthogonalization)
+1. [Classic Networks](#classic_networks)
 
 
 
-# Introduction to ML Strategy
-## Orthogonalization <a name="orthogonalization"></a>
+# Case studies
+## Classic Networks <a name="classic_networks"></a>
