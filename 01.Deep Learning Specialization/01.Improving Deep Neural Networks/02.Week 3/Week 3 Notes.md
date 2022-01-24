@@ -62,10 +62,10 @@ Given Z[l] = [z(1), ..., z(m)], i = 1 to m (for each input):
 
 
 ## Why does Batch Normalization work? <a name="why_does_batch_norm_work"></a>
-- Batch Normalization reduces the amount that the distribution of the hidden unit values shifts around (i.e. reduces the internal covariate shift that affects the hidden units):
+- Batch Normalization reduces the amount that the distribution of the values of the hidden units shifts around (i.e. reduces the internal covariate shift that affects the hidden units):
   - Hidden units have their values changing all the time (since the parameters `W` and `b` are updating during the training phase)
-  - However, Batch Normalization limits the amount to which updating the parameters `W` and `b` of the previous hidden layers can affect the distribution of values that the next hidden layer sees (since it restricts the distribution by applying constraints on the mean and variance)
-  - As a consequence, Batch Normalization causes the hidden units values to become more stable: so even as the earlier layers keep learning, the amount that these changes in distribution force the later layers to adapt is weaken
+  - However, Batch Normalization limits the amount to which updating the parameters `W` and `b` of the previously hidden layers can affect the distribution of values that the next hidden layer sees (since it restricts the distribution by applying constraints on the mean and variance)
+  - As a consequence, Batch Normalization causes the values of the hidden units to become more stable: so even as the earlier layers keep learning, the amount that these changes in distribution force the later layers to adapt is weaken
   - Finally, we can see that Batch Normalization weakens the coupling between the earlier layers and the later layers, allowing each layer to learn more independently of other layers, which in turn speeds up the learning process
 - Batch Normalization also produces a regularization effect:
   - Each mini batch is scaled by the mean/variance computed of that mini-batch
