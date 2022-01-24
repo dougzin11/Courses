@@ -154,7 +154,7 @@
   - Fully connected
 
 
-## Pooling layers <a name="polling_layers"></a>
+## Pooling layers <a name="pooling_layers"></a>
 - Convolutional Neural Networks often use pooling layers to reduce the size of the representation, speed up computation, as well as to make some of the features it detects more robust
 - Max pooling example with `f = 2`, `s = 2` and `p = 0` hyperparameters **(image taken from the course)**:
 
