@@ -1,6 +1,7 @@
 ## Table of contents
 1. [Object Localization](#object_localization)
 2. [Landmark Detection](#landmark_detection)
+3. [Object Detection](#object_detection)
 
 
 # Detection algorithms
@@ -86,5 +87,20 @@
 
 
 ## Object Detection <a name="object_detection"></a>
+- If you are building a car detection algorithm, for example, you can follow an approach called **Sliding Windows Detection**:
+- For this approach, here is what we do:
+  1. Train a ConvNet on cropped images of cars, as shown below **(image taken from the course)**
+    
+      ![Screen Shot 2022-01-27 at 18 47 21](https://user-images.githubusercontent.com/36196866/151449158-2a3549c8-7395-4dd2-afbf-03f1d40aee2d.png)
+ 
+  2. Pick a window size
+  3. Split your image into many windows of the size you picked in the previous step (every part of the image needs to be covered)
+  4. Feed each window to the ConvNet trained on step 1
+  5. Repeat step 2, 3 and 4 using a different window size (this step can be repeated as many times as you want - i.e. you can pick several window sizes)
+  6. Store the windows that the ConvNet model classified as containing a car
 
+- Disadvantages of the Sliding Windows Dectetion:
+  - High computational cost
+  
 
+## Convolutional Implementation of Sliding Windows <a name="convolutional_implementation_of_sliding_windows"></a>
