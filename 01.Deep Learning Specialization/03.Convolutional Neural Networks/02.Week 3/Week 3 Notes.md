@@ -7,6 +7,7 @@
 6. [Intersection Over Union](#intersection_over_union)
 7. [Non-max Suppresion](#non_max_suppression)
 8. [Anchor Boxes](#anchor_boxes)
+9. [YOLO Algorithm](#yolo_algorithm)
 
 
 # Detection algorithms
@@ -189,7 +190,50 @@
 
 
 ## Anchor Boxes <a name="anchor_boxes"></a>
-- 
+- One of the problems with object detection as you have seen it so far is that each of the grid cells can detect only one object. What if a grid cell wants to detect multiple objects? 
+  - Imagine you have overlapping objects where their midpoint are almost in the same place and both of them fall into the same grid cell **(image taken from the course)**
+
+    ![Screen Shot 2022-01-31 at 20 17 53](https://user-images.githubusercontent.com/36196866/151888867-b2601a97-4909-407b-af38-917963aae1d8.png)
+
+  - Having an `Y` output of `[ Pc, b_x, b_y, b_h, b_w, c_1, c_2, c_3]` makes it impossible to detect 2 objects at the same time (we need to pick only 1). However, we can use the idea of anchor boxes
+- You can use the idea of anchor boxes:
+  - We are going to pre-defined different shapes called anchor boxes (e.g. 2 anchor boxes, 5 anchor boxes, etc.). Image below shows 2 anchor boxes **(image taken from the course)**
+
+    ![Screen Shot 2022-01-31 at 20 22 27](https://user-images.githubusercontent.com/36196866/151889330-20624402-4094-4266-abe3-07c4289db369.png)
+
+  - Now, we are going to associate the output `Y` to each anchor box:
+    ```
+       Y = [
+          Pc, # Anchor box 1
+          b_x, # Anchor box 1
+          b_y, # Anchor box 1
+          b_h, # Anchor box 1
+          b_w, # Anchor box 1
+          c_1, # Anchor box 1
+          c_2, # Anchor box 1
+          c_3, # Anchor box 1
+          Pc, # Anchor box 2
+          b_x, # Anchor box 2
+          b_y, # Anchor box 2
+          b_h, # Anchor box 2
+          b_w, # Anchor box 2
+          c_1, # Anchor box 2
+          c_2, # Anchor box 2
+          c_3 # Anchor box 2
+        ]
+    ```
+  - Since the anchor box 1 is more similar to the shape of a pedestrian (in the example given above), then the first 8 elements of the output `Y` vector will be associated with detecting the presence of a pedestrian. The anchor box 2 (the remaining elements of `Y`) will then be associated with detecting the presence of a car
+    - Similarity is measure in terms of `IoU`. The object is assigned to the anchor box with highets IoU
+- To summarize:
+  - Without anchor box: 
+    - the object is assigned to the grid cell that contains object's midpoint (i.e. each object is assigned to a `grid cell`)
+    - In our example, our output `Y` would have a shape of `3x3x8` (`3x3` comes from the fact we use a `3x3` grid and `8` comes from the fact we want to predict 3 classes)
+  - With anchor boxes: 
+    - the object is assigned to the grid cell that contains object's midpoint and also assigned to the anchor box with highest `IoU` (i.e. each object is assigned to the pair `grid cell, anchor box`)
+    - In our example, our output `Y` would have a shape of `3x3x16` (`3x3` comes from the fact we use a `3x3` grid and `16` comes from the fact we want to predict 3 classes and we use 2 anchor boxes)
+- Cases when anchor boxes does not perform well:
+  - When there are 3 objects in the same grid cell but we use fewer anchor boxes
+  - When there are objects with similar shape
 
 
-
+## YOLO Algorithm <a name="yolo_algorithm"></a>
