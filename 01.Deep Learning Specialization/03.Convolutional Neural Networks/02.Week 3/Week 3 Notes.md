@@ -2,6 +2,8 @@
 1. [Object Localization](#object_localization)
 2. [Landmark Detection](#landmark_detection)
 3. [Object Detection](#object_detection)
+4. [Convolutional Implementation of Sliding Windows](#convolutional_implementation_of_sliding_windows)
+5. [Bounding Box Predictions](#bounding_box_predictions)
 
 
 # Detection algorithms
@@ -104,3 +106,27 @@
   
 
 ## Convolutional Implementation of Sliding Windows <a name="convolutional_implementation_of_sliding_windows"></a>
+- First, let's understand how we can turn fully connected layers (FC) into convolutional layers. The image below shows us how **(image taken from the course)**
+
+  ![Screen Shot 2022-01-31 at 09 54 44](https://user-images.githubusercontent.com/36196866/151797155-2e0730a9-3c9e-4510-8ec2-93e0ae1855c1.png)
+
+  - The image above shows we can use 400 filters of `5x5x16` to turn the input of `5x5x16` into an output of `1x1x400`. This is how we can transform FCs into convolutional layers
+- Convolution implementation of sliding windows:
+  - Suppose that you trained a Conv Net in a `14x14x3` image, as shown below **(image taken from the course)**:
+  
+    ![Screen Shot 2022-01-31 at 09 58 39](https://user-images.githubusercontent.com/36196866/151797662-c3fd4deb-6e92-425b-a9f6-663370d6d567.png)
+
+  - However, say we have now a `16x16x3` image that we want to apply the sliding windows. What we could do is feed the `16x16x3` image to the trained Conv Net
+    - In the image below **(image taken from the course)**, we can break down the `2x2x4` output image as follows:
+      - upper left-hand corner corresponds to the same result as running the Conv Net in the upper left-hand corner of the `16x16x3` input image (pixels painted as blue in the image)
+      - upper right-hand corner corresponds to the same result as running the ConvNet in the upper right-hand corner of the `16x16x3` input image
+      - The same applies to all the other regions (i.e. lower right-hand corner and lower left-hand corner)
+- This implementation, however, also has its pros and cons:
+  - pros: reduces the computational cost associated with the sliding windows
+  - cons: the position of the bounding boxes surrounding the object will not be as accurate as the original sliding windows technique
+
+ 
+ ## Bounding Box Predictions <a name="bounding_box_predictions"></a>
+
+
+
