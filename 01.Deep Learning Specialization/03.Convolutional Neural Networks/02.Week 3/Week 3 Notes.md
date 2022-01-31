@@ -4,6 +4,9 @@
 3. [Object Detection](#object_detection)
 4. [Convolutional Implementation of Sliding Windows](#convolutional_implementation_of_sliding_windows)
 5. [Bounding Box Predictions](#bounding_box_predictions)
+6. [Intersection Over Union](#intersection_over_union)
+7. [Non-max Suppresion](#non_max_suppression)
+8. [Anchor Boxes](#anchor_boxes)
 
 
 # Detection algorithms
@@ -127,6 +130,66 @@
 
  
  ## Bounding Box Predictions <a name="bounding_box_predictions"></a>
+- In order to produce more accurate bounding boxes, we can reccurr to a different algorithm: YOLO (you only look once)
+- The idea behind YOLO is as follows:
+  - Take the input image and place a grid on top of it (the more granular the grid, the more accurate the bounding box is). In the example below, we place a `3x3` grid **(image taken from the course)**
+
+    ![Screen Shot 2022-01-31 at 18 49 12](https://user-images.githubusercontent.com/36196866/151878776-8e215955-f563-47a9-9e3a-2fec8ec26413.png)
+
+    - For each grid, we will need to have labels for training the model. The labels for each grid will look like as below
+      ```
+      Y = [
+          Pc, # corresponds to the probability that the midpoint of the object is in the grid
+          b_x, # bounding box parameter
+          b_y, # bounding box parameter
+          b_h, # bounding box parameter
+          b_w, # bounding box parameter
+          c_1, # probability of the class 1
+          c_2, # probability of the class 2
+          ...
+        ]
+      ```
+      - For cases where the object falls in 2 different grid cells, we assign the object to the grid cell that contains its midpoint. 
+    - Since each grid cell should have an `8` dimensional output vector. Since we have a `3x3` grid, then the target output will have a size of `3x3x8`
+  - The input image will pass through a Conv Net and have an output of the size `3x3x8`
+    - The Conv Net will learn to map the input image to the output Y
+  - As long as we don't have more than 1 object in the same grid cell, YOLO should work
+    - We will see later how to address this problem
+- How to specify the bounding box:
+  - First, we need to set the origin for the grid (e.g. upper left corner is the origin `(0,0)`, which makes the bottom right corner assume the `(1,1)` value)
+  - Set `b_x` and `b_y` accordingly (i.e. calculate the mid point of the object related to the origin) - `b_x` and `b_y` have to be between 0 and 1
+  - `b_h` and `b_w` are specified as a fraction of the overall height and width of the grid cell - `b_h` and `b_w` can be greater than 1
+- **Important notes**:
+  - YOLO allows your network to output bounding boxes of any aspect ratio, as well as, output much more precise coordinates that aren't just dictated by the size of your sliding windows classifier
+  - This is a convolutional implementation (you're not implementing this algorithm nine times on the `3x3` grid)
+
+
+## Intersection Over Union <a name="intersection_over_union"></a>
+- Intersection Over Union is a function used to evaluate your object detection algorithm
+- Intersection Over Union (IoU) calculates the intersection over the predicted bounding box and the ground truth bounding box
+- Take a look at an example below **(image taken from the course)**:
+  
+  ![Screen Shot 2022-01-31 at 19 51 19](https://user-images.githubusercontent.com/36196866/151886208-e622fb3a-ee2a-4163-b929-fd80abd72f1e.png)
+  
+  - Purple box: predicted output
+  - Red box: ground truth output
+  - `IoU = intersection area / union area`
+- The higher `IoU` the better
+
+
+## Non-max Suppresion <a name="non_max_suppression"></a>
+- One of the problems of Object Detection is that your algorithm may find multiple detections of the same objects. Rather than detecting an object just once, it might detect it multiple times
+- Non-max suppression is a way for you to make sure that your algorithm detects each object only once
+- Non-max suppression algorithm (assuming we only have 1 output class):
+  1. Discard all predicted bounding boxes that are below a specific threshold (e.g. `0.6`)
+  2. While there are any remaining boxes:
+    1. Pick the bounding box associated with the largest `P_c` output 
+    2. Discard all the other boxes that have a hight overlap (i.e. high `IoU` greather than a specific threshold (e.g. `0.5`)) with the chosen box in the previous step
+- If there are `c` classes/object you want to detect, you should run the Non-max suppression `c` times, once for every output class
+
+
+## Anchor Boxes <a name="anchor_boxes"></a>
+- 
 
 
 
