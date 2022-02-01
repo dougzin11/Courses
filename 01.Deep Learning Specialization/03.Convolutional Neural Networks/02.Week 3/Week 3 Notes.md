@@ -233,7 +233,28 @@
     - In our example, our output `Y` would have a shape of `3x3x16` (`3x3` comes from the fact we use a `3x3` grid and `16` comes from the fact we want to predict 3 classes and we use 2 anchor boxes)
 - Cases when anchor boxes does not perform well:
   - When there are 3 objects in the same grid cell but we use fewer anchor boxes
-  - When there are objects with similar shape
+  - When there are objects with similar shape in the same grid cell
 
 
 ## YOLO Algorithm <a name="yolo_algorithm"></a>
+- The above sections cover the idea behind the training phase of the YOLO algorithm
+- In this section, we will focus what happens during prediction time:
+  - If you are using `N` anchor boxes, each grid cell will output `N` bounding boxes (even if they have very low probabilities)
+  - Get rid of the low probability predictions
+  - We will then apply non-max suppression
+  - See an example below where we are using `2` anchor boxes
+    - Each grid cell will have 2 predicted bounding boxes
+
+      ![Screen Shot 2022-02-01 at 09 28 18](https://user-images.githubusercontent.com/36196866/151968301-f2d8e34a-f93c-4833-b150-5d0a0eefefe0.png)
+  
+    - Get rid of low probability predictions
+
+      ![Screen Shot 2022-02-01 at 09 27 52](https://user-images.githubusercontent.com/36196866/151968242-610c01cd-51f2-4476-86fd-7d9829d428ec.png)
+
+    - For each class, use non-max suppression to generate final predictions
+
+      ![Screen Shot 2022-02-01 at 09 29 49](https://user-images.githubusercontent.com/36196866/151968487-36c739c6-24dd-4ce7-b220-bd415dec8975.png)
+  
+
+
+
