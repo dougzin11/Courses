@@ -73,13 +73,13 @@
 ## Face Verification and Binary Classification <a name="face_verification_and_binary_classification"></a>
 - Triplet loss is one way to learn the parameters of a Conv Net for face recognition. However, there's another way to learn these parameters as a straight binary classification problem
 - Posing Face Verification problem as a Binary classification problem:
-  - We can take the encoding vectores of the 2 images and input to a logistic regression unit to then just make a prediction
+  - We can take the encoding vectors of the 2 images and input them to a logistic regression unit to then just make a prediction
   - The target output will be 1 if both of the images represent the same persons, and 0 if they represent different persons. The image below summarizes the process **(image taken from the course)**
 
     ![Screen Shot 2022-02-01 at 18 51 39](https://user-images.githubusercontent.com/36196866/152071612-cabc8d8d-fe12-4372-bfab-b770354c4ab7.png)
 
   - The final layer can be a Sigmoid function applied to the difference of the 2 encodings: `y = sigmoid(w * |sum(f(x(i))_k - f(x(j))_k))| + b`, where:
-    - `k` represents the `k` component of the encoding vector (e.g. if the encoding vector has dimension of `128`, then we would calculate the difference for each one of the `128` components)
+    - `k` represents the `k` component of the encoding vector (e.g. if the encoding vector has a dimension of `128`, then we would calculate the difference for each one of the `128` components)
     - `||` takes the absolute value of the difference between the 2 encoding vectors (we can use other distances like Euclidean distance)
     - `w` and `b` are parameters learned during training (like in traditional neural networks)
 
