@@ -78,10 +78,12 @@
 
     ![Screen Shot 2022-02-01 at 18 51 39](https://user-images.githubusercontent.com/36196866/152071612-cabc8d8d-fe12-4372-bfab-b770354c4ab7.png)
 
-  - The final layer can be a Sigmoid function applied to the difference of the 2 encodings: `y = sigmoid(w * |sum(f(x(i))_k - f(x(j))_k))| + b`, where:
+  - The final layer can be a Sigmoid function applied to the difference of the 2 encodings: `y = sigmoid(w_k * |sum(f(x(i))_k - f(x(j))_k))| + b`, where:
     - `k` represents the `k` component of the encoding vector (e.g. if the encoding vector has a dimension of `128`, then we would calculate the difference for each one of the `128` components)
     - `||` takes the absolute value of the difference between the 2 encoding vectors (we can use other distances like Euclidean distance)
     - `w` and `b` are parameters learned during training (like in traditional neural networks)
+
+      ![Screen Shot 2022-02-01 at 21 10 39](https://user-images.githubusercontent.com/36196866/152072432-d7bafa69-b21e-4fa6-9de6-5fd736819f93.png)
 
 
 # Neural Style Transfer
