@@ -5,6 +5,8 @@
 4. [Triples Loss](#triples_loss)
 5. [Face Verification and Binary Classification](#face_verification_and_binary_classification)
 6. [What is Neural Style Transfer](#what_is_neural_style_transfer)
+7. [What are deep ConvNets learning?](#what_are_convenets_learning)
+8. [Cost function](#cost_function)
 
 
 # Face Recognition
@@ -105,6 +107,25 @@
 
 
 ## Cost function <a name="cost_function"></a>
-- 
+- Given a content image `C`, a style image `S` and a generated image `G`, we will define a cost function `J(G)` as follows:
+  - `J(G) = alpha * J_content(C, G) + beta * J_style(S, G)`
+    - J(C, G) measures how similar is the generated image to the Content image
+    - J(S, G) measures how similar is the generated image to the Style image
+    - `alpha` and `beta` are hyperparameters
+- To find t he generated image `G`, here is what we do:
+  1. Initiate `G` randomly
+  2. Use Gradient Descent to minimize `J(G)`
+    a. `G = G - dG`
+- See below an example **(images taken from the course)**:
+  - Goal is to generate an image combining the content of the image on the left with the style of the image on the right
+
+    <img width="314" alt="Screen Shot 2022-02-07 at 20 21 36" src="https://user-images.githubusercontent.com/36196866/152888898-7d018515-d17f-42f6-b8f8-91409d12e556.png">
+
+  - Following the above process, here is what we might end-up seeing:
+
+    <img width="565" alt="Screen Shot 2022-02-07 at 20 22 05" src="https://user-images.githubusercontent.com/36196866/152888913-a9b792d8-0165-4a00-a5e8-428876256d58.png">
+
+
+## Content Cost Function <a name="content_cost_function"></a>
 
 
