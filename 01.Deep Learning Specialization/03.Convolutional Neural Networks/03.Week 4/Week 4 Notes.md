@@ -4,6 +4,7 @@
 3. [Siamese Network](#siamese_network)
 4. [Triples Loss](#triples_loss)
 5. [Face Verification and Binary Classification](#face_verification_and_binary_classification)
+6. [What is Neural Style Transfer](#what_is_neural_style_transfer)
 
 
 # Face Recognition
@@ -87,3 +88,23 @@
 
 
 # Neural Style Transfer
+## What is Neural Style Transfer <a name="what_is_neural_style_transfer"></a>
+- Neural Style Transfer takes a Content Image (`C`) and a Style Image (`S`) and generates another image `G` based on the content image and style image. The picture below shows the idea behind the Neural Style Transfer **(image taken from the course)**
+
+  <img width="978" alt="Screen Shot 2022-02-07 at 19 57 16" src="https://user-images.githubusercontent.com/36196866/152886276-35292c8c-8e69-4a97-a5e2-b7528e4ee932.png">
+
+- In order to implement Neural Style Transfer, you need to look at the features extracted by ConvNet at various layers: the shallow and the deeper layers of a ConvNet
+
+
+## What are deep ConvNets learning? <a name="what_are_convenets_learning"></a>
+- Shallow layers: learn more simple representations like edges, horizontal lines, etc.
+- Deeper layers: learn more complex representations like dogs, texts, etc.
+- The image below shows how the complexity of the representations tent to get higher when we go deeper in the network **(image taken from the course)**
+
+  <img width="944" alt="Screen Shot 2022-02-07 at 20 09 52" src="https://user-images.githubusercontent.com/36196866/152887619-d7114193-17ee-4bf4-b839-58617173d87a.png">
+
+
+## Cost function <a name="cost_function"></a>
+- 
+
+
