@@ -7,6 +7,8 @@
 6. [What is Neural Style Transfer](#what_is_neural_style_transfer)
 7. [What are deep ConvNets learning?](#what_are_convenets_learning)
 8. [Cost function](#cost_function)
+9. [Content Cost Function](#content_cost_function)
+10. [Style Cost Function](#style_cost_function)
 
 
 # Face Recognition
@@ -127,5 +129,32 @@
 
 
 ## Content Cost Function <a name="content_cost_function"></a>
+- Pick a hidden layer `l`
+  - Usually, `l` is not too shallow and not too deep (i.e.a layer in the middle of the network)
+- Use pre-trained ConvNet
+- Let `a[l]_c` and `a[l]_g` be the activation of the layer `l` on the images
+- If `a[l]_c` and `a[l]_g` are similar, then they will have the same content
+  - `J_content(C, G)[l] = 1/2 * || a[l]_c - a[l]_g ||**2` (element-wise difference between Content and Generated image)
 
 
+## Style Cost Function <a name="style_cost_function"></a>
+- Say you are picking a layer `l` to calculate/measure the style
+- Style is defined as the covariance between activations across channels in the layer `l` - see image below **(image taken from the course)**
+
+  ![Screen Shot 2022-02-11 at 11 10 30](https://user-images.githubusercontent.com/36196866/153606689-cb39811f-07fe-4a57-8ec8-1b4ac478335c.png)
+
+- In the end, you want the covariance in the Style image channels to also appear in the Generated image channels
+- Style matrix (Gram matrix):
+  - Let `a[l][i, j, k]` be the activation at layer `l`, where `i` indexes into the `Height`, `j` into the `Width` and `k` into the `Channels`
+  - Calculate `G[l]` - shape of `n_c[l] x n_c[l]` for both the Style image and Generated image **(image taken from the course)**
+    - This calculates the covariance among channels
+
+      <img width="465" alt="Screen Shot 2022-02-11 at 11 25 40" src="https://user-images.githubusercontent.com/36196866/153609025-dba6477d-cf12-47c9-9d71-1b12d47329af.png">
+
+  - Finally, the Style Cost Function can be given by the element-wise difference between the 2 Gram matrixes:
+
+     ![Screen Shot 2022-02-11 at 11 26 49](https://user-images.githubusercontent.com/36196866/153609324-d35579f8-87b9-4566-9522-ddcb972bd5cc.png)
+
+- It turns out that you get more visually pleasing results if you use the style cost function from multiple different layers. So, the overall style cost function can be defines as:
+  - `J(S, G) = sum(lambda[l] * J(S,G)[l])`, for all layers considered
+    - `lambda[l]` is an additional hyperparameter
