@@ -2,6 +2,8 @@
 1. [Notation](#notation)
 2. [Recurrent Neural Network Model](#recurrent_neural_network_model)
 3. [Backpropagation through time](#backpropagation_through_time)
+4. [Different types of RNN](#different_types_of_rnn)
+5. [Language model and sequence generation](#language_model_and_sequence_generation)
 
 
 # Recurrent Neural Networks
@@ -67,6 +69,39 @@
 
 
 ## Backpropagation through time <a name="backpropagation_through_time"></a>
-- 
+- First, let's take a look at the Forward propagation step **(image taken from the course)**:
+   
+    ![Screen Shot 2022-03-07 at 19 54 22](https://user-images.githubusercontent.com/36196866/157131817-d28020c2-45d5-424b-a4a2-4b7cb61d4a7c.png)
+
+    - Where <code>W<sub>a</sub></code>, <code>b<sub>a</sub></code>, <code>W<sub>y</sub></code>, <code>b<sub>y</sub></code> are shared across all the network
     
+- In order to calculate the backpropagation step, we need to define a loss function. In the below case, we define the cross-entropy loss **(image taken from the course)**:
     
+    <img width="540" alt="Screen Shot 2022-03-07 at 19 57 58" src="https://user-images.githubusercontent.com/36196866/157132276-14be51b4-79c1-478d-89e7-c24fc9247916.png">
+
+    - The first equation is the loss for one example
+    - The second equation is the loss for the whole sequence that is given (from `t` = 1 till <code>T<sub>y</sub></code>)
+    - When calculating the backpropagation step, we calculate the derivatives and the information "flow" in the opposite direction as the forward propagation step. Therefore, we have a flow comming from <code>a<sup><T<sub>y</sub>></sup></code> in the direction of <code>a<sup><1></sup></code>. This is the reason why this backpropagation is also called backpropagation through time
+    
+
+## Different types of RNN <a name="different_types_of_rnn"></a>
+- The previous example is a case of an architecture called **Many to Many** where the output and input have the same length
+- In sentiment analysis problems, `X` is a text while `Y` is an integer (e.g. ranging from 1 to 5). This RNN architecture is called **Many to One** **(image taken from the course)**
+    
+    ![Screen Shot 2022-03-07 at 20 12 12](https://user-images.githubusercontent.com/36196866/157133866-3f5ffc46-da2a-414e-bb6a-3d3ed3844fd9.png)
+
+- There is also a RNN architecture called **One to Many** that can appear when dealing with music generation problems, for example **(image taken from the course)**
+    
+    ![Screen Shot 2022-03-07 at 20 13 30](https://user-images.githubusercontent.com/36196866/157134032-f8a6f090-020f-4cfe-9575-5bf6282d9fef.png)
+
+- We can also encounter **Many to Many** architectures where the input and output have different lengths. Machine translation is one area where it is common to find this type of architecture **(image taken from the course)**
+    
+    ![Screen Shot 2022-03-07 at 20 16 05](https://user-images.githubusercontent.com/36196866/157134290-91b4ac20-4f36-4cbf-8c17-fb75cd23e0d9.png)
+
+- Summary of RNNs architecture **(image taken from the course)**
+    
+    <img width="715" alt="Screen Shot 2022-03-07 at 20 17 16" src="https://user-images.githubusercontent.com/36196866/157134446-40e712a1-adb6-4651-b89e-a8fb27c70bea.png">
+
+
+## Language model and sequence generation <a name="language_model_and_sequence_generation"></a>
+
