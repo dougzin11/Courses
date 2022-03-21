@@ -104,4 +104,16 @@
 
 
 ## Language model and sequence generation <a name="language_model_and_sequence_generation"></a>
+- Language model
+    - Let's say we are solving a speech recognition problem and someone says a sentence that can be interpreted into two sentences:
+        - The apple and pair salad
+        - The apple and pear salad
+    - Pair and pear sound the same, so how would a speech recognition application choose from the two
+    - That's where the language model comes in. It gives a probability for the two sentences and the application decides the best based on this probability
+- How to build language model with RNNs:
+    - You need a large corpus of english text
+    - Tokenize each sentence in your training set
+    - You can add the `<EOS>` token to explicitly capture when sentences end
+    - You can add the `<UNK>` token for unknown words
+- 
 
