@@ -4,6 +4,9 @@
 3. [Backpropagation through time](#backpropagation_through_time)
 4. [Different types of RNN](#different_types_of_rnn)
 5. [Language model and sequence generation](#language_model_and_sequence_generation)
+6. [Vanishing gradients with RNNs](#vanishing_gradients)
+7. [Gated Recurrent Unit](#gated_recurrent_unit)
+8. [Long Short Term Memory](#lstm)
 
 
 # Recurrent Neural Networks
@@ -115,5 +118,49 @@
     - Tokenize each sentence in your training set
     - You can add the `<EOS>` token to explicitly capture when sentences end
     - You can add the `<UNK>` token for unknown words
-- 
 
+    
+## Vanishing gradients with RNNs <a name="vanishing_gradients"></a>
+- Suppose we have the 2 example sentences below:
+    - "The cat, which already ate ..., was full"
+    - "The cats, which already ate ..., were full"
+    - This is one example of when language can have very long-term dependencies, where words much earlier can affect what needs to come much later in the sentence (was vs were)
+- The basic RNN we have seen so far is not very good at capturing very long-term dependencies
+    - The outputs are mainly influenced by the inputs that are closer
+        - E.g. <code>y<sup><10></sup></code> is more influenced by <code>x<sup><9></sup></code> input than <code>x<sup><1></sup></code>
+    - As we have discussed in Deep neural networks, deeper networks are getting into the vanishing gradient problem. That also happens with RNNs with a long sequence size
+    - For computing the word "was", we need to compute the gradient for everything behind. Multiplying fractions tends to vanish the gradient, while the multiplication of large numbers tends to explode it
+        - Weight may not be properly updated
+- RNNs can also suffer from exploding gradients (although it is less common than vanishing gradients):
+    - One solution to that is to recur to gradient clipping: if your gradient is more than some threshold - re-scale some of your gradient vector so that is not too big. So there are clipped according to some maximum value
+    
+    
+## Gated Recurrent Unit <a name="gated_recurrent_unit"></a>
+- The Gated Recurrent Unit is a modification to the RNN hidden layer that makes it much better capturing long-range connections and helps a lot with the vanishing gradient problems
+- The basic RNN unit can be shown as the below diagram **(image taken from the course)**
+    
+    ![Screen Shot 2022-03-23 at 18 05 18](https://user-images.githubusercontent.com/36196866/159795553-25c488bf-e84f-49f4-a8a3-1aad3af87ba6.png)
+
+- The simplified version of GRU is governed by the following equations **(image taken from the course)**
+    
+    ![Screen Shot 2022-03-23 at 18 22 34](https://user-images.githubusercontent.com/36196866/159797979-b1180791-df07-427b-92c8-edf16f003e47.png)
+    
+    - The `C` stands for memory cell and it holds the same value as `a`: <code>C<sup>< t ></sup></code> = <code>a<sup>< t ></sup></code>
+    - The `C_tilda` calculates a candidate to possibly update `C`
+    - The gate is going to decide whether or not we replace `C` by `C_tilda`
+        - The update gate always hold values between 0 and 1
+    - The simplified version of GRU can be drawn as follows **(image taken from the course)**
+    
+        ![Screen Shot 2022-03-23 at 19 00 13](https://user-images.githubusercontent.com/36196866/159803132-560a7f09-ea89-4e6d-a9f4-64df9d9cd21f.png)
+
+- GRUs are good at solving the vanishing gradient problem since:
+    - The update gate can easily assume values close to zero which, in turn, makes <code>C<sup>< t ></sup></code> very close to <code>C<sup>< t - 1 ></sup></code>
+    
+- The full version of GRU is governed by the following equations **(image taken from the course)**:
+    
+    ![Screen Shot 2022-03-23 at 19 16 12](https://user-images.githubusercontent.com/36196866/159805191-0b0d68bc-82d5-4767-8e1f-b59aa040fd29.png)
+
+    - The full GRU contains a new gate that is used with to calculate the candidate `C`. The gate tells you how relevant is <code>C<sup>< t - 1 ></sup></code> to computing the next candidate for <code>C<sup>< t ></sup></code>
+
+    
+## Long Short Term Memory <a name="lstm"></a>
