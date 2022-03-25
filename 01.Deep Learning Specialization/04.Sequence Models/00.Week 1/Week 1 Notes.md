@@ -6,7 +6,8 @@
 5. [Language model and sequence generation](#language_model_and_sequence_generation)
 6. [Vanishing gradients with RNNs](#vanishing_gradients)
 7. [Gated Recurrent Unit](#gated_recurrent_unit)
-8. [Long Short Term Memory](#lstm)
+8. [Long Short Term Memory (LSTM)](#lstm)
+9. [Bidirectional RNN](#bidirectional_rnn)
 
 
 # Recurrent Neural Networks
@@ -163,4 +164,39 @@
     - The full GRU contains a new gate that is used with to calculate the candidate `C`. The gate tells you how relevant is <code>C<sup>< t - 1 ></sup></code> to computing the next candidate for <code>C<sup>< t ></sup></code>
 
     
-## Long Short Term Memory <a name="lstm"></a>
+## Long Short Term Memory (LSTM) <a name="lstm"></a>
+- In the LSTM, <code>C<sup>< t ></sup></code> != <code>a<sup>< t ></sup></code>
+- The equations governing LSTM can be shown as follows **(image taken from the course)**:
+    
+    ![Screen Shot 2022-03-25 at 14 56 41](https://user-images.githubusercontent.com/36196866/160175886-6d427baf-7350-450c-892d-880a45783ffd.png)
+
+    - We can notice that in LSTM we have:
+        - Update gate
+        - Forget gate
+        - Output gate
+- The LSTM can be drawn as follows **(image taken from the course)**:
+    
+    ![Screen Shot 2022-03-25 at 15 03 29](https://user-images.githubusercontent.com/36196866/160176768-26d511c6-df34-419a-8901-8e88720b58dd.png)
+
+    
+## Bidirectional RNN <a name="bidirectional_rnn"></a>
+- The Bidirectional RNN structure can be represented as follows **(image taken from the course)**:
+    
+    ![Screen Shot 2022-03-25 at 15 20 44](https://user-images.githubusercontent.com/36196866/160179148-ae3f88ec-e6af-442d-b9ee-ccff55a2bc57.png)
+
+- Part of the forward propagation goes from left to right, and part - from right to left. It learns from both sides
+- To make predictions we use <code>ŷ<sup>< t ></sup></code> by using the two activations that come from left and right
+    - <code>ŷ<sup>< t > </sup> = g(W<sub>y</sub>[a_forward<sup>< t ></sup>, a_backward<sup>< t ></sup>] + b<sub>y</sub>)</code>
+- The blocks here can be any RNN block including the basic RNNs, LSTMs, or GRUs
+    
+    
+## Deep RNNs <a name="deep_rnns"></a>
+- In a lot of cases the standard one layer RNNs will solve your problem. But in some problems its useful to stack some RNN layers to make a deeper network
+- For example, a deep RNN with 3 layers would look like this:
+    
+    ![Screen Shot 2022-03-25 at 15 45 16](https://user-images.githubusercontent.com/36196866/160182687-145a9185-9deb-43a7-b5f4-8d2d4d08547e.png)
+
+    - Example of how you calculate `a`:
+    
+        <code>a<sup>[2]<3></sup> = g(W<sub>a</sub><sup>[2]</sup>[a<sup>[2] <2></sup>, a<sup>[1] <3></sup>] + b<sub>a</sub><sup>[3]</sup>)</code>
+    - The RNN blocks don't just have to be standard RNN. They can also be GRU blocks or LSTM blocks, for example
