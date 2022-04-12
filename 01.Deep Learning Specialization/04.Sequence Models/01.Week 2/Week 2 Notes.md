@@ -1,6 +1,6 @@
 ## Table of contents
-1. [Computer Vision](#computer_vision)
+1. [Word Representation](#word_representation)
 
 
-# Convolutional Neural Networks
-## Computer Vision <a name="computer_vision"></a>
+# Introduction to Word Embeddings
+## Word Representation <a name="word_representation"></a>
